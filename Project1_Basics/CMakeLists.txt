@@ -3,4 +3,4 @@ project(Project1_Basics)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Project1_Basics main.cpp)
+add_executable(Project1_Basics main.cpp Sphere.cpp Sphere.h Vector3.cpp Vector3.h)
