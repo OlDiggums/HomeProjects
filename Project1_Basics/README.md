@@ -1,4 +1,4 @@
 # Project1_Basics
 
 
-![](./Output.png)
+![Output Result](./Output.png)
