@@ -19,6 +19,7 @@ Sphere::Sphere(float xx,float yy,float zz, float _radius) {
     radius = _radius;
 }
 
+// Distance from sphere function using the input point
 float Sphere::SignedDistFunc(Vector3 point) {
     return (point-position).getMagnitude()-radius;
 }

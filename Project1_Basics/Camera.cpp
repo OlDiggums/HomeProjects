@@ -3,8 +3,10 @@
 //
 
 #include <iostream>
+#include <opencv2/highgui.hpp>
 #include "Camera.h"
 
+//Horrible constructor, will need to be refactored to add inputs, and with an adjustable FOV
 Camera::Camera() {
     position = Vector3(0,0,0);
     imgPlane = Vector3(0,0,-1);
@@ -15,39 +17,47 @@ Camera::Camera() {
 
 }
 
-int** Camera::CaptureImage(Sphere inp) {
-    int** array2D = new int*[height];
+// The heart of the Ray Marching
+cv::Mat Camera::CaptureImage(Sphere _sphere) {
+    cv::Mat img2(height,width,CV_8UC3,cv::Scalar(0,0,0));
 
+    //Looping over each pixel
     for (int h = 0; h<height;h++){
-        array2D[h] = new int[width];
         for(int w = 0; w<width;w++){
-            Vector3 rayPoint = Vector3(position.x,position.y,position.z);
-            Vector3 dir = GetDirection(h,w);
-            float rayDist = inp.SignedDistFunc(rayPoint);
-            bool keepLoop = true;
-            while (keepLoop){
-                rayPoint = (dir*rayDist)+rayPoint;
-                rayDist = inp.SignedDistFunc(rayPoint);
 
+            cv::Vec3b & color = img2.at<cv::Vec3b>(h,w);                                                          //color    - Current pixel colors
+            Vector3 dir = GetDirection(w,h);                                                                     //dir      - Direction of the current ray
+            Vector3 rayPoint = Vector3(position.x,position.y,position.z);                                     //raypoint - Current point of the marched ray, starting at camera position
+            float rayDist = _sphere.SignedDistFunc(rayPoint);                                                      //rayDist  - Distance the ray can travel without hitting the sphere
+
+            bool keepLoop = true;
+            // Keep marching the ray
+            while (keepLoop){
+                // March the ray as far as it can travel without hitting the sphere
+                rayPoint = (dir*rayDist)+rayPoint;
+                // Find the distance from the ray point to the sphere
+                rayDist = _sphere.SignedDistFunc(rayPoint);
+
+                //If the ray point distance is less than 0.01 consider it as reaching the surface of the sphere
                 if (rayDist<0.01){
                     keepLoop = false;
-                    array2D[h][w] = 1;
+                    color[0] = 255;
+                    img2.at<cv::Vec3b>(cv::Point(w,h)) = color;
                 }
 
+                //If the ray point distance is greater than 50 we are obviously flying past it at this point
                 if(rayDist>50){
                     keepLoop = false;
-                    array2D[h][w] = 0;
                 }
             }
-
-
-
         }
     }
 
-    return array2D;
+
+    return img2;
 }
 
+//Direction of the ray traveling through the center of a pixel of the image plane
 Vector3 Camera::GetDirection(int px, int py) {
     float Px = (2*((px+0.5)/width)-1)* tanf(FOV/2*M_PI/180)*aspectRatio;
     float Py = (1-2*((py+0.5)/height))*tanf(FOV/2*M_PI/180);

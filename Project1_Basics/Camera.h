@@ -6,6 +6,7 @@
 #define PROJECT1_BASICS_CAMERA_H
 #include "Vector3.h"
 #include "Sphere.h"
+#include <opencv2/core/core.hpp>
 
 class Camera {
 public:
@@ -15,7 +16,7 @@ public:
     int height;
 
     Camera();
-    int** CaptureImage(Sphere inp);
+    cv::Mat CaptureImage(Sphere inp);
     Vector3 GetDirection(int px,int py);
 
 private:
