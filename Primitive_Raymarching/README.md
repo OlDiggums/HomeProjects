@@ -1,4 +1,4 @@
-# Project1_Basics
+# Primitive_Raymarching
 Goal of this project is to implement a very basic implementation of Raymarching. The current implementation does not implement UV's or lighting. At this point it is simply a boolean image of wheter the ray has intersected a sphere or not.
 
 
