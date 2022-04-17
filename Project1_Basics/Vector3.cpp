@@ -23,3 +23,8 @@ void Vector3::SetPosition(float xx, float yy, float zz) {
     this->z= zz;
 }
 
+Vector3 Vector3::Normalize() {
+    float mag = this->getMagnitude();
+    return Vector3(x/mag,y/mag,z/mag);
+}
+

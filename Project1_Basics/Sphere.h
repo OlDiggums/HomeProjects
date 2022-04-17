@@ -14,7 +14,7 @@ public:
     Sphere(Vector3 pos,float _radius);
     Sphere(float xx,float yy,float zz,float _radius);
     void SetPosition(float xx,float yy,float zz){position.SetPosition(xx,yy,zz);}
-
+    float SignedDistFunc(Vector3 point);
 };
 
 
