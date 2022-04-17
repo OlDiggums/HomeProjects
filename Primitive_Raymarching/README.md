@@ -47,3 +47,7 @@ For this to work, we need to use the signed distance function of a sphere <br />
 [F3]: https://latex.codecogs.com/png.image?\dpi{110}Py&space;=&space;(1-2*\frac{y&plus;0.5}{height})*tan(\frac{FOV}{2}*\frac{\pi}{180})
 [F4]: https://latex.codecogs.com/png.image?\dpi{110}d&space;=&space;(Px,Py,-1)-position
 [F5]: https://latex.codecogs.com/png.image?\dpi{110}dir&space;=&space;\frac{d}{\left|&space;d\right|}
+
+
+### Result
+![](./Output.png)
