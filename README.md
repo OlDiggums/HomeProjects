@@ -1,7 +1,8 @@
+
 # Outdated, please see link below
 https://github.com/OlDiggums/Portfolio_DiffuseRaymarching
 
-# Primitive_Raymarching
+# Portfolio_PrimitiveRaymarching
 Goal of this project is to implement a very basic implementation of Raymarching. The current implementation does not implement UV's or lighting. At this point it is simply a boolean image of wheter the ray has intersected a sphere or not.
 
 
